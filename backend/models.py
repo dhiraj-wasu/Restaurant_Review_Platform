@@ -17,5 +17,7 @@ class comments(models.Model):
       restaurant_id=models.ForeignKey(restaurant,on_delete=models.CASCADE)
       Review=models.TextField()
 
-
+class Leaderborad_backup(models.Model):
+      restaurant_name=models.CharField(max_length=255)
+      score=models.CharField(max_length=255)
       

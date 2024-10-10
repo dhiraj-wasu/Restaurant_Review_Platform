@@ -10,6 +10,9 @@ from filelock import FileLock
 
 from backend.models import restaurant
 from ..RestaurantLeaderboard import Leaderboard
+
+
+
 @shared_task
 def predictor(res_id):
     csv_file_path ='backend\\model\\csv_files\\comments.csv'
@@ -104,7 +107,7 @@ def predictor(res_id):
             # Update the Redis leaderboard
     leaderboard = Leaderboard()
     leaderboard.update_score(name.restaurant_name, score_delta)
-    return 
+    return 1
      
 # Create a bar plot for the distribution of predicted labels
 #     plt.bar(value_counts.index, value_counts.values)

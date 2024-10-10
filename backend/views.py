@@ -9,8 +9,8 @@ from backend.serializers import CommentSerializer, CustomerSerializer, ResSerial
 # from .serializers import *
 from .models import *
 # Create your views here.
-from .task.task import predictor
-from .task.task2 import export_comments_to_csv
+from  backend.tasks.task import predictor
+from  backend.tasks.task2 import export_comments_to_csv
 from django.db import transaction
 
 from .RestaurantLeaderboard import Leaderboard
@@ -41,7 +41,7 @@ class addcomment(generics.ListCreateAPIView):
                                        Review=comment
                )
            export_comments_to_csv(res_id)
-           predictor(res_id)
+           result=predictor.delay(res_id)
            serializer = CommentSerializer(data)
            data.save()
            return JsonResponse({
@@ -101,7 +101,7 @@ def leaderboard_view(request):
     leaderboard = Leaderboard()
     
     # Fetch the top 10 restaurants
-    top_restaurants = leaderboard.get_top_n(10)
+    top_restaurants = leaderboard.get_all_scores()
     print(top_restaurants)
     # Prepare the leaderboard data for the JSON response
     leaderboard_data = [

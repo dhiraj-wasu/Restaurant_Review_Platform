@@ -1,0 +1,3 @@
+celery -A Restaurant_Review_Platform control shutdown
+# use the solo flag for now (in mvp/development)
+celery -A Restaurant_Review_Platform worker --loglevel=info -P solo

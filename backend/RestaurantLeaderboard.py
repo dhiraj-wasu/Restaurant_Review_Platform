@@ -20,10 +20,14 @@ class Leaderboard:
         """Get the score of a restaurant."""
         return self.redis_client.zscore(self.name, restaurant_id)
 
-    def get_top_n(self, n=2):
+    def get_top_n(self, n=10):
         """Retrieve the top N restaurants."""
         return self.redis_client.zrevrange(self.name, 0, n - 1, withscores=True)
 
     def get_bottom_n(self, n=10):
         """Retrieve the bottom N restaurants."""
         return self.redis_client.zrange(self.name, 0, n - 1, withscores=True)
+    
+    def get_all_scores(self):
+        """Retrieve all restaurants and their scores."""
+        return self.redis_client.zrange(self.name, 0, -1, withscores=True)

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "backend"
+    "backend",
+    'django_celery_beat',
+    
 ]
 
 MIDDLEWARE = [
@@ -95,13 +98,20 @@ CACHES = {
 }
 
 
-CELERY_BROKER_URL = 'redis://:oGA9eL814BgnCkqd3oxWBhJKUHDATUUV@redis-12263.c278.us-east-1-4.ec2.redns.redis-cloud.com:12263/0'
-CELERY_RESULT_BACKEND='redis://:oGA9eL814BgnCkqd3oxWBhJKUHDATUUV@redis-12263.c278.us-east-1-4.ec2.redns.redis-cloud.com:12263/0'
-# CELERY_ACCEPT_CONTENT=['application/json']
-# CELERY_RESULT_SELERLIZER='json'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
+CELERY_RESULT_BACKEND='redis://127.0.0.1:6379/1'
+
+CELERY_ACCEPT_CONTENT=['application/json']
+CELERY_RESULT_SELERLIZER='json'
 # 6379
 # set the celery timezone
-CELERY_TIMEZONE = 'UTC'
+# CELERY_BEAT_SCHEDULE = {
+#     'call-my-function-every-2-minutes': {
+#         'task': 'backend.backup.my_function',
+#         'schedule': crontab(minute='*/2'),
+#     },
+# }
+CELERY_TIMEZONE = 'Asia/Kolkata'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
