@@ -12,7 +12,7 @@ from .models import *
 from  backend.tasks.task import predictor
 from  backend.tasks.task2 import export_comments_to_csv
 from django.db import transaction
-
+from rest_framework.decorators import api_view
 from .RestaurantLeaderboard import Leaderboard
 
 class analysis(generics.ListCreateAPIView):
@@ -27,7 +27,6 @@ class analysis(generics.ListCreateAPIView):
               "result":"error"
              })
      
-
 
 
 class addcomment(generics.ListCreateAPIView):
@@ -48,6 +47,14 @@ class addcomment(generics.ListCreateAPIView):
                     "comment":serializer.data
                          }
                  )
+    def get(self, request, *args, **kwargs):
+         data= comments.objects.filter( user_id=self.request.user)
+         serializer = CommentSerializer(data, many=True)
+         return JsonResponse({
+                    "comment":serializer.data
+                         }
+                 )
+    
     
 
 
