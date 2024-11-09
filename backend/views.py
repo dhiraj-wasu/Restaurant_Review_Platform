@@ -4,7 +4,7 @@ import csv
 from rest_framework import generics
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from backend.serializers import CommentSerializer, CustomerSerializer, ResSerializer
 # from .serializers import *
 from .models import *

@@ -4,7 +4,7 @@ from celery import shared_task
 import numpy as np
 import pandas as pd
 import csv
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import seaborn as sns
 from filelock import FileLock
 

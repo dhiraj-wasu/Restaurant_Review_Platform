@@ -1,7 +1,7 @@
 ###Importing libraries
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import seaborn as sns
 from backend.RestaurantLeaderboard import Leaderboard###Importing dataset (from google drive)
 # from google.colab import drive
@@ -45,7 +45,7 @@ def predictor(res_id):
 ###Predictions (via sentiment classifier)
     import joblib
     # import pandas as pd
-    import matplotlib.pyplot as plt
+    # import matplotlib.pyplot as plt
 
 # Load the classifier
     classifier = joblib.load('backend\\model\\c2_Classifier_Sentiment_Model.pkl')
