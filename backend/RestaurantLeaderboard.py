@@ -3,8 +3,20 @@ from django.conf import settings
 
 class Leaderboard:
     def __init__(self, name="-"):
-        self.redis_client = redis.StrictRedis.from_url(settings.CACHES['default']['LOCATION'])
-        self.name = name
+        try:
+            # Attempt to connect to Redis
+            self.redis_client = redis.StrictRedis.from_url(settings.CACHES['default']['LOCATION'])
+            self.name = name
+        except redis.ConnectionError as e:
+            # Handle specific redis connection errors
+            print(f"Redis connection error: {e}")
+            self.redis_client = None
+            return 
+        except Exception as e:
+            # Handle any other exceptions
+            print(f"An error occurred in Leaderboard initialization: {e}")
+            self.redis_client = None
+            return
 
     def update_score(self, restaurant_name, score_delta):
         """Update the score of a restaurant based on sentiment analysis."""

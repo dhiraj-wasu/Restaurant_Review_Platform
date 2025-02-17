@@ -12,9 +12,17 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = comments
         fields = '__all__'
+
+class updateCommentSerializer(serializers.ModelSerializer):
+    user=serializers.HiddenField(default=serializers.CurrentUserDefault())
+    class Meta:
+        model = comments
+        fields = '__all__'
+
+
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = customer
+        model = M_User
         fields = '__all__'
 
 class ResSerializer(serializers.ModelSerializer):
